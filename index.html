@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;700&display=swap" rel="stylesheet">
+
+    <title>Simon Game</title>
+  </head>
+  <body>
+
+    <!-- Alert Modal -->
+    <div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" id="ModalLongTitle"><strong>Simon Game says...</strong></h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true" onclick="location.reload()">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h4><strong>Your Score</strong></h4>
+            <p>You have reached level xx!</p>
+            <p class="message">Nice try!</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="location.reload()">Improve my Score</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Info Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content px-2">
+          <div class="modal-header">
+            <h3 class="modal-title" id="exampleModalLongTitle"><strong>Welcome to Simon Game!</strong></h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h4><strong>Goal</strong></h4>
+            <p>Correctly repeat a longer and longer sequence of signals.</p>
+            <h4><strong>Instructions</strong></h4>
+            <p>Click on one of the questions below to view the answer.</p>
+            <ol>
+              <li>
+                <h5 data-toggle="collapse" href="#start" role="button" aria-expanded="false" aria-controls="collapseExample">
+                  <strong>How to start the game?</strong>
+                </h5>
+                <div class="collapse" id="start">
+                  <div class="text-justify">
+                    Press the ON/OFF button to start the game.
+                  </div>
+                </div>
+              </li>
+              <br>
+              <li>
+                <h5 data-toggle="collapse" href="#play" role="button" aria-expanded="false" aria-controls="collapseExample">
+                  <strong>How to play the game?</strong>
+                </h5>
+                <div class="collapse" id="play">
+                  <div class="text-justify">
+                    After start the game, Simon will give the first signal. Repeat the signal by pressing the same color lens. Simon will duplicate the first signal and add one. Repeat these two signals by pressing the same color lenses, in order. Simon will duplicate these first two signals and add one. Continue playing as long as you can repeat each sequence of signals correctly. NOTE: After the 5th, 9th and 13th signals in a sequence, Simon automatically speeds up.
+                  </div>
+                </div>
+              </li>
+              <br>
+              <li>
+                <h5 data-toggle="collapse" href="#end" role="button" aria-expanded="false" aria-controls="collapseExample">
+                  <strong>When does the game end?</strong>
+                </h5>
+                <div class="collapse" id="end">
+                  <div class="text-justify">
+                    If you fail to repeat a sequence exactly, or if you take more than 2, 4, or 6 seconds to repeat a signal (according to the selected game level), Simon responds with a "RAZZ" sound. This means you've lost, and the sequence of signals ends.
+                  </div>
+                </div>
+              </li>
+              <br>
+              <li>
+                <h5 data-toggle="collapse" href="#level" role="button" aria-expanded="false" aria-controls="collapseExample">
+                  <strong>Can I change the skill level?</strong>
+                </h5>
+                <div class="collapse" id="level">
+                  <div class="text-justify">
+                    Sure! Select your preferences in the settings (<span class="fas fa-cog"></span>) button before starting the game. NOTE: In this version, you need to select your preferences every time before starting a new game.
+                  </div>
+                </div>
+              </li>
+            </ol>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal fade" id="settingsModalCenter" tabindex="-1" role="dialog" aria-labelledby="settingsModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content px-2">
+          <div class="modal-header">
+            <h3 class="modal-title" id="settingsModalLongTitle"><strong>Simon Game Settings</strong></h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h4><strong>Time to die:</strong>
+              <button class="fas fa-info-circle btn" data-toggle="collapse" href="#die" role="button" aria-expanded="false" aria-controls="collapseDie" style="float: right;"></button>
+              <div class="collapse" id="die">
+                <div class="text-justify">
+                  If you take more than 2, 4 or 6 seconds to repeat a signal, Simon responds with a "RAZZ" sound. This means you've lost, and the sequence of signals ends.
+                </div>
+              </div>
+            </h4>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="inlineRadio1" value="option1">
+              <label class="form-check-label" for="inlineRadio1">Hard [2s]</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="inlineRadio2" value="option2">
+              <label class="form-check-label" for="inlineRadio2">Medium [4s]</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="inlineRadio3" value="option3" checked>
+              <label class="form-check-label" for="inlineRadio3">Easy [6s]</label>
+            </div>
+
+            <h4 class="pt-4"><strong>Speed Rate:</strong>
+              <button class="fas fa-info-circle btn" data-toggle="collapse" href="#speed" role="button" aria-expanded="false" aria-controls="collapseDie" style="float: right;"></button>
+              <div class="collapse" id="speed">
+                <div class="text-justify">
+                  After the 5th, 9th and 13th signals in a sequence, Simon automatically speeds up according to the selected speed rate.
+                </div>
+              </div>
+            </h4>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions2" id="inlineRadio4" value="option1">
+              <label class="form-check-label" for="inlineRadio4">Hard [4x]</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions2" id="inlineRadio5" value="option2">
+              <label class="form-check-label" for="inlineRadio5">Medium [2x]</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions2" id="inlineRadio6" value="option3" checked>
+              <label class="form-check-label" for="inlineRadio6">Easy [1x]</label>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dev Info Modal -->
+    <div class="modal fade" id="developerModalCenter" tabindex="-1" role="dialog" aria-labelledby="developerModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content px-2">
+          <div class="modal-header">
+            <h3 class="modal-title" id="developerModalLongTitle"><strong>Developer</strong></h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="avatar">
+              <img src="img/avatar.png" alt="">
+              <div class="">
+                <h4>Leonardo Martins Rodrigues</h4>
+                <p class="social-networks">
+                  <a target="_blank" href="https://www.linkedin.com/in/leonardo-martins-rodrigues-1a1b9b7b/"><i class="fab fa-linkedin"></i></a>
+                  <a target="_blank" href="https://github.com/leomr85"><i class="fab fa-github"></i></a>
+                  <a target="_blank" href="https://facebook.com/leomr85"><i class="fab fa-facebook"></i></a>
+                  <a target="_blank" href="https://instagram.com/leomr85"><i class="fab fa-instagram"></i></a>
+                  <a target="_blank" href="https://twitter.com/leomr85"><i class="fab fa-twitter"></i></a>
+                  <a target="_blank" href="https://youtube.com/leomr85"><i class="fab fa-youtube"></i></a>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-circle mx-auto">
+      <!-- Button trigger modal -->
+      <div class="upper-left-button">
+        <button class="fas fa-info-circle btn" data-toggle="modal" data-target="#exampleModalCenter"></button>
+      </div>
+
+      <img src="img/border.png" alt="">
+
+      <div class="upper-right-button">
+        <button class="fas fa-cog btn" data-toggle="modal" data-target="#settingsModalCenter"></button>
+      </div>
+
+      <div class="upper-left clickable">
+        <img src="img/1.png" alt="">
+      </div>
+      <div class="upper-right clickable">
+        <img src="img/2.png" alt="">
+      </div>
+      <div class="lower-left clickable">
+        <img src="img/3.png" alt="">
+      </div>
+      <div class="lower-right clickable">
+        <img src="img/4.png" alt="">
+      </div>
+      <div class="center">
+        <img src="img/on.png" alt="">
+      </div>
+
+      <div class="lower-left-corner">
+        <p class="simon" data-toggle="tooltip" data-placement="bottom" title="Number of pushes remaining">0</p>
+      </div>
+
+      <div class="lower-right-button">
+        <button class="fab fa-dev btn" data-toggle="modal" data-target="#developerModalCenter"></button>
+      </div>
+    </div>
+
+    <!-- <div class="footer">
+      <p class="custom-font-text small-font">
+        Copyright © 2021 <a href="https://www.instagram.com/leomr85" target="_blank">Leonardo Rodrigues</a>
+      </p>
+    </div> -->
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <!-- JavaScript -->
+    <script src="script.js" charset="utf-8"></script>
+
+  </body>
+</html>
